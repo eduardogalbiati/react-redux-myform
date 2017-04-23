@@ -1,4 +1,5 @@
 # React-Redux-myform
+  - The main concept here is to abstract any form>field interaction, dispatching actions to Store automatically and managing the submit callBack
   - This code will be extracted to npm, for now there is only the implementation example on code.
   - Built on [React-Redux-Foundation Boilerplate](https://github.com/timaschew/react-redux-foundation-boilerplate) a Minimal Boilerplate for Redux + React + React-Router-Redux and Foundation
 
@@ -30,7 +31,7 @@ render() {
 }
 ```
 
-With these lines, myform will automatcally create a index on ```Store``` with the form data using the form name as index,
+With these lines, myform will automatically create a index on ```Store``` with the form data using the form name as index,
 it should be like ```Store.myForm``` with values
 
 ```
