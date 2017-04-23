@@ -16,9 +16,25 @@ Use `CTRL + H` to toggle the Redux Dock Monitor
 
 ## Implementation examples
 
-#### Rendering the form
+### Registering reducers
 
 ```jsx
+import myForm from '../components/MyForm/src/reducers/index';
+
+const rootReducer = combineReducers({
+  reducers,
+  myForm
+})
+```
+
+#### Rendering the form
+
+
+```jsx
+import Input from './MyForm/src/components/input';
+import MyForm from './MyForm/src/components/form';
+import SubmitButton from './MyForm/src/components/submitButton';
+
 render() {
     return (
         <MyForm name="customform">
@@ -31,8 +47,19 @@ render() {
 }
 ```
 
-With these lines, myform will automatically create a index on ```Store``` with the form data using the form name as index,
-it should be like ```Store.myForm``` with values
+On render, myform will automatically create a index on ```Store``` with the form data using the form name as index, Dispatching the action:
+
+
+```jsx
+return {
+      type: 'FIELD_INIT',
+      payload: {
+        data
+      }
+    }
+```
+
+the  ```Store.myForm``` will be filled with the folowing json:
 
 ```
 customForm : {
@@ -41,6 +68,18 @@ customForm : {
     lastname: null
 
 }
+```
+
+#### Handling changes
+
+Every time a input is changed, an FIELD_UPDATE action will be dispatched and the store will be updated with values
+```jsx
+return {
+      type: 'FIELD_UPDATE',
+      payload: {
+        data
+      }
+    }
 ```
 
 #### Submiting the form
