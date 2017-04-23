@@ -112,11 +112,11 @@ render() {
 
 
 #### Todo
-  - [] Extract into a NPM module
-  - [] Add new elements
+  - [ ] Extract into a NPM module
+  - [ ] Add new elements
     - [x] Input
     - [x] Select
-    - [] Radio
-    - [] Checkbox
-    - [] Textarea
+    - [ ] Radio
+    - [ ] Checkbox
+    - [ ] Textarea
 
