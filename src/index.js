@@ -1,11 +1,11 @@
-import React from 'react'
-import { render } from 'react-dom'
-import Root from './containers/root'
-import configureStore from './store/configure-store'
+import Input from './components/input';
+import Select from './components/select';
+import MyForm from './components/form';
+import SubmitButton from './components/submitButton';
 
-const store = configureStore()
-
-render(
-  <Root store={store} />,
-  document.getElementById('root')
-)
+export {
+  MyForm,
+  Input,
+  Select,
+  SubmitButton
+}
