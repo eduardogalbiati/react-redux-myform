@@ -1,36 +1,29 @@
+import * as ActionTypes from '../actions'
+import myForm from '../components/MyForm/src/reducers/index';
+import { routeReducer } from 'react-router-redux'
+import { combineReducers } from 'redux'
+import update from 'react-addons-update'
 
-const initialState = {}
-
-function mergeValuesWithState(state, payload){
-    let arr = {...state};
-    arr[payload.data.form] = {...state[payload.data.form]}
-    arr[payload.data.form][payload.data.name] = payload.data.value;
-    return arr;
-}
-
-function mergeFormIndex(state, form){
-    let arr = {...state};
-    arr[payload.data.form] = {}
-}
-
-export default function myForm(state = initialState, action) {
+function notifications(state = {callouts: []}, action) {
   switch (action.type) {
-    case 'FIELD_UPDATE':
-        let updates = mergeValuesWithState(state, action.payload);
-        return {
-            ...state,
-            ...updates
-        };
 
-    case 'FIELD_INIT':
-        let init = mergeValuesWithState(state, action.payload);
-        console.log(init);
-        return {
-            ...state,
-            ...init
-        };
+    case ActionTypes.CREATE_CALLOUT:
+      return update(state, {callouts: {$push: [action.payload]}})
+
+    case ActionTypes.REMOVE_CALLOUT:
+      const { id } = action.payload
+      const index = state.callouts.map(item => item.id).indexOf(id)
+      return update(state, {callouts: {$splice: [[index, 1]]}})
 
     default:
-      return {...state}
+      return state
   }
 }
+
+const rootReducer = combineReducers({
+  routing: routeReducer,
+  notifications,
+  myForm
+})
+
+export default rootReducer
