@@ -34,3 +34,14 @@ export default function myForm(state = initialState, action) {
       return {...state}
   }
 }
+<<<<<<< Updated upstream
+=======
+
+const rootReducer = combineReducers({
+  routing: routeReducer,
+  notifications,
+  myForm,
+})
+
+export default rootReducer
+>>>>>>> Stashed changes

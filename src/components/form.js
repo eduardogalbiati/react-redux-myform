@@ -1,41 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import { updateField, initField } from '../actions/form';
+import { updateField, initField, blurField } from '../actions/form';
 
 class MyForm extends Component {
     constructor(props){
         super(props);
         this.initField = this.initField.bind(this);
         this.updateField = this.updateField.bind(this);
-        this.getField = this.getField.bind(this);
+        this.blurField = this.blurField.bind(this);
+        this.getFieldProps = this.getFieldProps.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
+
     }
 
-    updateField(name, value) {
+    updateField(state) {
         this.props.dispatch(
             updateField({
-                form: this.props.name,
-                name: name,
-                value: value
+                ...state,
+                form: this.props.name
             })
         );
     }
 
-    initField(name, value) {
+    initField(initialState) {
         this.props.dispatch(
             initField({
-                form: this.props.name,
-                name: name,
-                value: value
+                ...initialState,
+                form: this.props.name
             })
         );
     }
 
-    getField(name){
+    blurField(state) {
+        this.props.dispatch(
+            blurField({
+                ...state,
+                form: this.props.name
+            })
+        );
+    }
+
+    getFieldProps(name, prop){
         if(this.props.myForm[this.props.name] != undefined) {
-            return this.props.myForm[this.props.name][name];
+            if(this.props.myForm[this.props.name][name] != undefined) {
+                if(this.props.myForm[this.props.name][name][prop]){
+                    return this.props.myForm[this.props.name][name][prop];
+                }
+            }
         }
+        return '';
     }
 
     _onSubmit(e){
@@ -59,7 +73,8 @@ class MyForm extends Component {
         return {
           initField: this.initField,
           updateField: this.updateField,
-          getField: this.getField
+          blurField: this.blurField,
+          getFieldProps: this.getFieldProps
         };
     }
 }
@@ -67,7 +82,8 @@ class MyForm extends Component {
 MyForm.childContextTypes = {
    initField: PropTypes.func,
    updateField: PropTypes.func,
-   getField: PropTypes.func
+   blurField: PropTypes.func,
+   getFieldProps: PropTypes.func
 }
 
 const mapStateToProps = (state) => {

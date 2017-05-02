@@ -2,27 +2,46 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Input extends Component {
+
     onInput(e){
-        this.context.updateField(this.props.name, e.target.value);
+        this.context.updateField({
+            name: this.props.name,
+            value: e.target.value
+        });
+    }
+
+    onBlur(e){
+        this.context.blurField({
+            name: this.props.name
+        });
     }
 
     componentWillMount(){
-        this.context.initField(this.props.name, null);
+        this.context.initField({
+            name: this.props.name,
+            class: 'form-group',
+            value: null,
+            required: false,
+            disabled: false,
+            status: 'pristiny',
+            touched: false
+        });
     }
 
     render(){
         const { name, ref } = this.props;
         return  (
-            <label>Input Label
-               <input
-               {...this.props}
-                name={name}
-                type="text"
-                onInput={this.onInput.bind(this)}
-                ref={name}
-                value={this.context.getField(this.props.name)}
-                />
-            </label>
+            <div className={"form-group "+this.context.getFieldProps(this.props.name, 'class')}>
+                <label>Input Label</label>
+                <input
+                    {...this.props}
+                    name={name}
+                    type="text"
+                    onBlur={this.onBlur.bind(this)}
+                    onInput={this.onInput.bind(this)}
+                    ref={name}
+                    value={this.context.getFieldProps(this.props.name, 'value')} />
+            </div>
         )
     }
 }
@@ -30,7 +49,8 @@ class Input extends Component {
 Input.contextTypes = {
   initField: PropTypes.func,
   updateField: PropTypes.func,
-  getField: PropTypes.func
+  blurField: PropTypes.func,
+  getFieldProps: PropTypes.func
 };
 
 export default Input;
