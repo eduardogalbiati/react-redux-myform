@@ -32,7 +32,6 @@ export default function myForm(state, action) {
                 ...state[action.payload.form],
                 [action.payload.name]: action.payload
             }
-
         };
 
     default:

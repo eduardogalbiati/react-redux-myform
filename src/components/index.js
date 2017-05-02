@@ -1,6 +1,14 @@
 import React, { Component, PropTypes } from 'react'
+<<<<<<< HEAD
 
 import { Input, Select, MyForm, SubmitButton } from './MyForm';
+=======
+import Input from './MyForm/src/components/input';
+import Select from './MyForm/src/components/select';
+import MyForm from './MyForm/src/components/form';
+import SubmitButton from './MyForm/src/components/submitButton';
+
+>>>>>>> 1a4979bb47c37f5dd59854f0dce20c214c69841a
 export default class Index extends Component {
     constructor(props) {
         super(props);
@@ -58,7 +66,13 @@ export default class Index extends Component {
                      <Input name="outro"/>
                   </div>
                 </div>
-
+                  </div>
+                </div>
+                <div className="row large-4 columns">
+                  <div className="large-12 columns">
+                   <Select itens={this.state.itens} name="dogs"/>
+                  </div>
+                </div>
                 <div className="row large-4 columns">
                     <SubmitButton className="primary button expanded"/>
                 </div>
